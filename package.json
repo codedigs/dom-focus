@@ -19,7 +19,7 @@
   "author": "Rodrigo Galura III <rodrigogalura3rd@gmail.com>",
   "license": "MIT",
   "bin": {
-    "app": "./app.js"
+    "df-cli": "./cli.js"
   },
   "dependencies": {
     "commander": "^4.0.1",

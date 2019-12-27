@@ -19,4 +19,16 @@ module.exports = {
     ],
     dest: "dist/app/img"
   },
+
+  build_fonts: {
+    src: [
+      "app/**/*.eot",
+      "app/**/*.svg",
+      "app/**/*.ttf",
+      "app/**/*.woff",
+      "app/**/*.woff2",
+      "app/**/*.otf"
+    ],
+    dest: "dist/app/fonts",
+  },
 };

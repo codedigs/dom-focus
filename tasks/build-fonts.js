@@ -2,9 +2,8 @@ var notifier = require("node-notifier");
 
 module.exports = function(gulp, plugins, config) {
   return function() {
-    var options = (typeof config.build_fonts.options !== config.build_fonts.options) ? config.build_fonts.options : {};
-
-    var flatten = typeof config.build_fonts.use_flatten !== "undefined" ? config.build_fonts.use_flatten : false;
+    var options = typeof config.build_fonts.options !== "undefined" ? config.build_fonts.options : {};
+    var flatten = typeof config.build_fonts.use_flatten !== "undefined" ? config.build_fonts.use_flatten : true;
     var notify = typeof config.build_fonts.notify !== "undefined" ? config.build_fonts.notify : false;
 
     return gulp.src(config.build_fonts.src, options)
@@ -17,8 +16,8 @@ module.exports = function(gulp, plugins, config) {
 
         if (notify) {
           notifier.notify({
-            title: "Sponge Rod",
-            message: "Build font files completed!"
+            title: "DOM Focus",
+            message: "Flatten font files completed!"
           });
         }
       });

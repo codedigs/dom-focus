@@ -25,7 +25,7 @@ var commands = {
   // scripts_watch: typeof config.scripts.watch_command !== "undefined" ? config.scripts.watch_command : "scripts:watch",
   build_views: "build:views",
   build_images: "build:images",
-  // build_fonts: "build:fonts",
+  build_fonts: "build:fonts",
   // build: "build",
   // unbuild: "unbuild"
 };
@@ -42,7 +42,7 @@ gulp.task(commands.sass_watch, [commands.sass], getTask('sass-watch'));
 
 gulp.task(commands.build_views, getTask("build-views"));
 gulp.task(commands.build_images, getTask("build-images"));
-// gulp.task(commands.build_fonts, getTask("build-fonts"));
+gulp.task(commands.build_fonts, getTask("build-fonts"));
 // gulp.task(commands.build, getTask("build"));
 // gulp.task(commands.unbuild, getTask("unbuild"));
 

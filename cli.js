@@ -20,6 +20,7 @@ function Cli() {
     this.sassWatchCommand();
     this.buildViewsCommand();
     this.buildImagesCommand();
+    this.buildFontsCommand();
   }
 
   this.executeCommand();
@@ -84,13 +85,24 @@ Cli.prototype = {
 
   buildImagesCommand: function() {
     program
-    .command(commands.build_images)
-    .description("Optimize image files.")
-    .action(function () {
-      Cli.commandUsed = commands.build_images; // need of executeCommand method
+      .command(commands.build_images)
+      .description("Optimize image files.")
+      .action(function () {
+        Cli.commandUsed = commands.build_images; // need of executeCommand method
 
-      app.runGulpCommand(commands.build_images);
-    });
+        app.runGulpCommand(commands.build_images);
+      });
+  },
+
+  buildFontsCommand: function() {
+    program
+      .command(commands.build_fonts)
+      .description("Flatten font files.")
+      .action(function () {
+        Cli.commandUsed = commands.build_fonts; // need of executeCommand method
+
+        app.runGulpCommand(commands.build_fonts);
+      });
   },
 
   executeCommand: function() {
