@@ -12,9 +12,6 @@ var commands = app.commands;
  * - program
  */
 function Cli() {
-  this.version = "1.0";
-  this.commandUsed = null;
-
   if (!this.hasConfigFile()) {
     this.initCommand();
   } else {
@@ -24,6 +21,9 @@ function Cli() {
   this.executeCommand();
 }
 
+Cli.VERSION = "1.0";
+Cli.commandUsed = null;
+
 Cli.prototype = {
   hasConfigFile: function() {
     return fse.existsSync(process.cwd() + "/config.js");
@@ -31,9 +31,11 @@ Cli.prototype = {
 
   initCommand: function() {
     program
-      .command('init')
+      .command(commands.init)
       .description("Create file config.js.")
       .action(function() {
+        Cli.commandUsed = commands.init; // need of executeCommand method
+
         try {
           fse.copySync(__dirname + "/config.js.example", process.cwd() + "/config.js");
           console.log("Successfully created file config.js.");
@@ -50,7 +52,7 @@ Cli.prototype = {
       .command(commands.sass)
       .description("Compile sass files.")
       .action(function () {
-        _this.commandUsed = commands.sass; // need of executeCommand method
+        Cli.commandUsed = commands.sass; // need of executeCommand method
 
         app.runGulpCommand(commands.sass);
       });
@@ -60,22 +62,22 @@ Cli.prototype = {
     var _this = this;
 
     program
-      .version(this.version, "-v, --version")
+      .version(Cli.VERSION, "-v, --version")
       .arguments('<cmd>')
       .action(function(cmd) {
-        _this.commandUsed = cmd;
+        Cli.commandUsed = cmd;
       });
 
     program.parse(process.argv);
 
-    if (_this.commandUsed === null) {
+    if (Cli.commandUsed === null) {
       var argvClone = process.argv.slice(0); // clone
       argvClone.push("-h");
       program.parse(argvClone);
 
       process.exit(1);
-    } else if (!(_this.commandUsed in commands)) {
-      console.error("\"" + _this.commandUsed + "\" is not a valid command. Use --help to display available commands.");
+    } else if (!(Cli.commandUsed in commands)) {
+      console.error("\"" + Cli.commandUsed + "\" is not a valid command. Use --help to display available commands.");
       process.exit(1);
     }
   }

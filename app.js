@@ -16,11 +16,13 @@ var plugins = require("gulp-load-plugins")({
 });
 
 var commands = {
+  init: "init",
+
+  /*task commands*/
   sass: "sass"
   // sass_watch: typeof config.sass.watch_command !== "undefined" ? config.sass.watch_command : "sass:watch",
   // scripts: typeof config.scripts.command !== "undefined" ? config.scripts.command : "scripts",
   // scripts_watch: typeof config.scripts.watch_command !== "undefined" ? config.scripts.watch_command : "scripts:watch",
-
   // build_views: typeof config.build_views.command !== "undefined" ? config.build_views.command : "build:views",
   // build_images: typeof config.build_images.command !== "undefined" ? config.build_images.command : "build:images",
   // build_fonts: typeof config.build_fonts.command !== "undefined" ? config.build_fonts.command : "build:fonts",
