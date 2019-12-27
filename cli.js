@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-var VERSION = "1.0";
-
 var fse = require('fs-extra');
 var program = require("commander");
 
@@ -9,16 +7,17 @@ var commands = app.commands;
 
 /**
  * Global variable used:
+ * - commands
  * - fse
  * - program
- * - commands
  */
 function Cli() {
-  // hierarchy is important
+  this.version = "1.0";
+
   if (!this.hasConfigFile()) {
     this.initCommand();
   } else {
-    this.sassCommand();
+    // this.sassCommand();
   }
 
   this.executeCommand();
@@ -30,8 +29,6 @@ Cli.prototype = {
   },
 
   initCommand: function() {
-    var _this = this;
-
     program
       .command('init')
       .description("Create file config.js.")
@@ -42,8 +39,6 @@ Cli.prototype = {
         } catch (err) {
           console.error(err);
         }
-
-        process.exit(1);
       });
   },
 
@@ -53,13 +48,12 @@ Cli.prototype = {
       .description("Compile sass files.")
       .action(function () {
         app.runGulpCommand(commands.sass);
-        process.exit(1);
       });
   },
 
   executeCommand: function() {
     program
-      .version(VERSION, "-v, --version")
+      .version(this.version, "-v, --version")
       .arguments('<cmd>')
       .action(function(cmd) {
         varCmd = cmd;
@@ -68,14 +62,15 @@ Cli.prototype = {
     program.parse(process.argv);
 
     if (typeof varCmd === "undefined") {
-      var argv = process.argv.slice(0); // clone
-      argv.push("-h");
-      program.parse(argv);
-    } else if (!(varCmd in commands)) {
-      console.error("\"" + varCmd + "\" is not a valid command. Use --help to display commands.");
-    }
+      // console.error("No command specified. Use --help to display available commands.");
 
-    process.exit(1);
+      var argvClone = process.argv.slice(0); // clone
+      argvClone.push("-h");
+
+      program.parse(argvClone);
+    } else if (!(varCmd in commands)) {
+      console.error("\"" + varCmd + "\" is not a valid command. Use --help to display available commands.");
+    }
   }
 };
 

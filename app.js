@@ -1,5 +1,13 @@
 var gulp = require("gulp");
-var config = require(process.cwd() + "/config");
+
+var config = {};
+
+try {
+  config = require(process.cwd() + "/config");
+} catch (e) {
+  // do nothing
+}
+
 var plugins = require("gulp-load-plugins")({
   DEBUG: config.debug,
   rename: {
