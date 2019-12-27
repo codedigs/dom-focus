@@ -2,8 +2,7 @@ var notifier = require("node-notifier");
 
 module.exports = function(gulp, plugins, config) {
   return function() {
-    var options = (typeof config.build_views.options !== config.build_views.options) ? config.build_views.options : {};
-
+    var options = typeof config.build_views.options !== "undefined" ? config.build_views.options : {};
     var notify = typeof config.build_views.notify !== "undefined" ? config.build_views.notify : false;
 
     return gulp.src(config.build_views.src, options)
@@ -18,8 +17,8 @@ module.exports = function(gulp, plugins, config) {
 
         if (notify) {
           notifier.notify({
-            title: "Sponge Rod",
-            message: "Build view files completed!"
+            title: "DOM Focus",
+            message: "Build view with minifying css and js files completed!"
           });
         }
       });

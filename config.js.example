@@ -9,5 +9,14 @@ module.exports = {
   build_views: {
     src: "app/**/*.html",
     dest: "dist/app"
-  }
+  },
+
+  build_images: {
+    src: [
+      "app/img/**/*.jpg",
+      "app/img/**/*.png",
+      "app/img/**/*.gif",
+    ],
+    dest: "dist/app/img"
+  },
 };

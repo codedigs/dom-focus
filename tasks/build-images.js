@@ -2,9 +2,8 @@ var notifier = require("node-notifier");
 
 module.exports = function(gulp, plugins, config) {
   return function() {
-    var options = (typeof config.build_images.options !== config.build_images.options) ? config.build_images.options : {};
-
-    var flatten = typeof config.build_images.use_flatten !== "undefined" ? config.build_images.use_flatten : false;
+    var options = typeof config.build_images.options !== "undefined" ? config.build_images.options : {};
+    var flatten = typeof config.build_images.use_flatten !== "undefined" ? config.build_images.use_flatten : true;
     var notify = typeof config.build_images.notify !== "undefined" ? config.build_images.notify : false;
 
     return gulp.src(config.build_images.src, options)
@@ -20,8 +19,8 @@ module.exports = function(gulp, plugins, config) {
 
         if (notify) {
           notifier.notify({
-            title: "Sponge Rod",
-            message: "Build image files completed!"
+            title: "DOM Focus",
+            message: "Optimize image files completed!"
           });
         }
       });

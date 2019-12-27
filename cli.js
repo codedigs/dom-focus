@@ -18,7 +18,8 @@ function Cli() {
   } else {
     this.sassCommand();
     this.sassWatchCommand();
-    this.buildViewCommand();
+    this.buildViewsCommand();
+    this.buildImagesCommand();
   }
 
   this.executeCommand();
@@ -70,7 +71,7 @@ Cli.prototype = {
       });
   },
 
-  buildViewCommand: function() {
+  buildViewsCommand: function() {
     program
       .command(commands.build_views)
       .description("Build view with minifying css and js files.")
@@ -79,6 +80,17 @@ Cli.prototype = {
 
         app.runGulpCommand(commands.build_views);
       });
+  },
+
+  buildImagesCommand: function() {
+    program
+    .command(commands.build_images)
+    .description("Optimize image files.")
+    .action(function () {
+      Cli.commandUsed = commands.build_images; // need of executeCommand method
+
+      app.runGulpCommand(commands.build_images);
+    });
   },
 
   executeCommand: function() {
