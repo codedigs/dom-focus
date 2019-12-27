@@ -16,6 +16,7 @@ function Cli() {
     this.initCommand();
   } else {
     this.sassCommand();
+    this.sassWatchCommand();
   }
 
   this.executeCommand();
@@ -46,8 +47,6 @@ Cli.prototype = {
   },
 
   sassCommand: function() {
-    var _this = this;
-
     program
       .command(commands.sass)
       .description("Compile sass files.")
@@ -58,9 +57,19 @@ Cli.prototype = {
       });
   },
 
-  executeCommand: function() {
-    var _this = this;
+  sassWatchCommand: function() {
+    // sass:watch command
+    program
+    .command(commands.sass_watch)
+    .description("Compile sass files every changes of it.")
+    .action(function () {
+      Cli.commandUsed = commands.sass_watch; // need of executeCommand method
 
+      app.runGulpCommand(commands.sass_watch);
+    });
+  },
+
+  executeCommand: function() {
     program
       .version(Cli.VERSION, "-v, --version")
       .arguments('<cmd>')
@@ -70,15 +79,23 @@ Cli.prototype = {
 
     program.parse(process.argv);
 
+    console.log(Cli.commandUsed);
+    console.log(commands);
+
     if (Cli.commandUsed === null) {
       var argvClone = process.argv.slice(0); // clone
       argvClone.push("-h");
       program.parse(argvClone);
 
       process.exit(1);
-    } else if (!(Cli.commandUsed in commands)) {
-      console.error("\"" + Cli.commandUsed + "\" is not a valid command. Use --help to display available commands.");
-      process.exit(1);
+    } else {
+      var invalidCommand = Object.values(commands).indexOf(Cli.commandUsed) === -1;
+
+      if (invalidCommand) {
+        console.error("\"" + Cli.commandUsed + "\" is not a valid command. Use --help to display available commands.");
+
+        process.exit(1);
+      }
     }
   }
 };
