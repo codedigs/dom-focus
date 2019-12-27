@@ -1,9 +1,9 @@
-var runSequence = require("run-sequence"),
-  notifier = require("node-notifier");
+var runSequence = require("run-sequence");
+var notifier = require("node-notifier");
 
 module.exports = function(gulp, plugins, config, commands) {
   return function() {
-    var notify = false;
+    var notify = true;
     if (typeof config.build !== "undefined") {
       if (typeof config.build.notify !== "undefined") {
         notify = config.build.notify;
@@ -12,7 +12,7 @@ module.exports = function(gulp, plugins, config, commands) {
 
     runSequence(commands.unbuild,
       commands.sass,
-      commands.scripts,
+      // commands.scripts,
       [
         commands.build_views,
         commands.build_images,
@@ -27,8 +27,8 @@ module.exports = function(gulp, plugins, config, commands) {
 
         if (notify) {
           notifier.notify({
-            title: "Sponge Rod",
-            message: "Build all files completed!"
+            title: "DOM Focus",
+            message: "Build completed!"
           });
         }
       }

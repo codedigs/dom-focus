@@ -21,6 +21,8 @@ function Cli() {
     this.buildViewsCommand();
     this.buildImagesCommand();
     this.buildFontsCommand();
+    this.buildCommand();
+    this.unbuildCommand();
   }
 
   this.executeCommand();
@@ -102,6 +104,28 @@ Cli.prototype = {
         Cli.commandUsed = commands.build_fonts; // need of executeCommand method
 
         app.runGulpCommand(commands.build_fonts);
+      });
+  },
+
+  buildCommand: function() {
+    program
+      .command(commands.build)
+      .description("\n\tRun commands in this order: \n\t* `unbuild` \n\t* `sass` \n\t* `scripts` \n\t* `build:views`, `build:images` and * `build:fonts` in parallel.")
+      .action(function () {
+        Cli.commandUsed = commands.build; // need of executeCommand method
+
+        app.runGulpCommand(commands.build);
+      });
+  },
+
+  unbuildCommand: function() {
+    program
+      .command(commands.unbuild)
+      .description("Remove output files(dist directory).")
+      .action(function () {
+        Cli.commandUsed = commands.unbuild; // need of executeCommand method
+
+        app.runGulpCommand(commands.unbuild);
       });
   },
 

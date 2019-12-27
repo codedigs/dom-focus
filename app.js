@@ -26,8 +26,8 @@ var commands = {
   build_views: "build:views",
   build_images: "build:images",
   build_fonts: "build:fonts",
-  // build: "build",
-  // unbuild: "unbuild"
+  build: "build",
+  unbuild: "unbuild"
 };
 
 function getTask(task) {
@@ -43,8 +43,8 @@ gulp.task(commands.sass_watch, [commands.sass], getTask('sass-watch'));
 gulp.task(commands.build_views, getTask("build-views"));
 gulp.task(commands.build_images, getTask("build-images"));
 gulp.task(commands.build_fonts, getTask("build-fonts"));
-// gulp.task(commands.build, getTask("build"));
-// gulp.task(commands.unbuild, getTask("unbuild"));
+gulp.task(commands.build, getTask("build"));
+gulp.task(commands.unbuild, getTask("unbuild"));
 
 module.exports = {
   commands: commands,

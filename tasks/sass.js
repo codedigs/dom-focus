@@ -3,7 +3,7 @@ var notifier = require("node-notifier");
 module.exports = function(gulp, plugins, config) {
   return function() {
     var options = typeof config.sass.options !== "undefined" ? config.sass.options : {};
-    var notify = typeof config.sass.notify !== "undefined" ? config.sass.notify : true;
+    var notify = typeof config.sass.notify !== "undefined" ? config.sass.notify : false;
 
     return gulp.src(config.sass.src, options)
       .pipe(plugins.plumber({
