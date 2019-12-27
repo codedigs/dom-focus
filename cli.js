@@ -13,11 +13,12 @@ var commands = app.commands;
  */
 function Cli() {
   this.version = "1.0";
+  this.commandUsed = null;
 
   if (!this.hasConfigFile()) {
     this.initCommand();
   } else {
-    // this.sassCommand();
+    this.sassCommand();
   }
 
   this.executeCommand();
@@ -39,37 +40,45 @@ Cli.prototype = {
         } catch (err) {
           console.error(err);
         }
+
+        process.exit(1);
       });
   },
 
   sassCommand: function() {
+    var _this = this;
+
     program
       .command(commands.sass)
       .description("Compile sass files.")
       .action(function () {
+        _this.commandUsed = commands.sass; // need of executeCommand method
+
         app.runGulpCommand(commands.sass);
       });
   },
 
   executeCommand: function() {
+    var _this = this;
+
     program
       .version(this.version, "-v, --version")
       .arguments('<cmd>')
       .action(function(cmd) {
-        varCmd = cmd;
+        _this.commandUsed = cmd;
       });
 
     program.parse(process.argv);
 
-    if (typeof varCmd === "undefined") {
-      // console.error("No command specified. Use --help to display available commands.");
-
+    if (_this.commandUsed === null) {
       var argvClone = process.argv.slice(0); // clone
       argvClone.push("-h");
-
       program.parse(argvClone);
-    } else if (!(varCmd in commands)) {
-      console.error("\"" + varCmd + "\" is not a valid command. Use --help to display available commands.");
+
+      process.exit(1);
+    } else if (!(_this.commandUsed in commands)) {
+      console.error("\"" + _this.commandUsed + "\" is not a valid command. Use --help to display available commands.");
+      process.exit(1);
     }
   }
 };
