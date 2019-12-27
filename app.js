@@ -23,9 +23,9 @@ var commands = {
   sass_watch: "sass:watch",
   // scripts: typeof config.scripts.command !== "undefined" ? config.scripts.command : "scripts",
   // scripts_watch: typeof config.scripts.watch_command !== "undefined" ? config.scripts.watch_command : "scripts:watch",
-  // build_views: typeof config.build_views.command !== "undefined" ? config.build_views.command : "build:views",
-  // build_images: typeof config.build_images.command !== "undefined" ? config.build_images.command : "build:images",
-  // build_fonts: typeof config.build_fonts.command !== "undefined" ? config.build_fonts.command : "build:fonts",
+  build_views: "build:views",
+  // build_images: "build:images",
+  // build_fonts: "build:fonts",
   // build: "build",
   // unbuild: "unbuild"
 };
@@ -40,7 +40,7 @@ gulp.task(commands.sass_watch, [commands.sass], getTask('sass-watch'));
 // gulp.task(commands.scripts_watch, [commands.scripts], getTask('scripts-watch'));
 // gulp.task("watch", [commands.sass_watch, commands.scripts_watch], function() {});
 
-// gulp.task(commands.build_views, getTask("build-views"));
+gulp.task(commands.build_views, getTask("build-views"));
 // gulp.task(commands.build_images, getTask("build-images"));
 // gulp.task(commands.build_fonts, getTask("build-fonts"));
 // gulp.task(commands.build, getTask("build"));

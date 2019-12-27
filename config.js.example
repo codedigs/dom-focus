@@ -4,5 +4,10 @@ module.exports = {
   sass: {
     src: "app/sass/**/*.scss",
     dest: "app/css"
+  },
+
+  build_views: {
+    src: "app/**/*.html",
+    dest: "dist/app"
   }
 };

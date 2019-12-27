@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 var fse = require('fs-extra');
 var program = require("commander");
 
@@ -17,6 +18,7 @@ function Cli() {
   } else {
     this.sassCommand();
     this.sassWatchCommand();
+    this.buildViewCommand();
   }
 
   this.executeCommand();
@@ -50,7 +52,7 @@ Cli.prototype = {
     program
       .command(commands.sass)
       .description("Compile sass files.")
-      .action(function () {
+      .action(function() {
         Cli.commandUsed = commands.sass; // need of executeCommand method
 
         app.runGulpCommand(commands.sass);
@@ -58,15 +60,25 @@ Cli.prototype = {
   },
 
   sassWatchCommand: function() {
-    // sass:watch command
     program
-    .command(commands.sass_watch)
-    .description("Compile sass files every changes of it.")
-    .action(function () {
-      Cli.commandUsed = commands.sass_watch; // need of executeCommand method
+      .command(commands.sass_watch)
+      .description("Compile sass files every changes of it.")
+      .action(function() {
+        Cli.commandUsed = commands.sass_watch; // need of executeCommand method
 
-      app.runGulpCommand(commands.sass_watch);
-    });
+        app.runGulpCommand(commands.sass_watch);
+      });
+  },
+
+  buildViewCommand: function() {
+    program
+      .command(commands.build_views)
+      .description("Build view with minifying css and js files.")
+      .action(function() {
+        Cli.commandUsed = commands.build_views; // need of executeCommand method
+
+        app.runGulpCommand(commands.build_views);
+      });
   },
 
   executeCommand: function() {
@@ -78,9 +90,6 @@ Cli.prototype = {
       });
 
     program.parse(process.argv);
-
-    console.log(Cli.commandUsed);
-    console.log(commands);
 
     if (Cli.commandUsed === null) {
       var argvClone = process.argv.slice(0); // clone

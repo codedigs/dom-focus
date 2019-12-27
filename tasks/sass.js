@@ -5,7 +5,7 @@ module.exports = function(gulp, plugins, config) {
     var options = typeof config.sass.options !== "undefined" ? config.sass.options : {};
     var notify = typeof config.sass.notify !== "undefined" ? config.sass.notify : true;
 
-    return gulp.src(config.sass.src)
+    return gulp.src(config.sass.src, options)
       .pipe(plugins.plumber({
         errorHandler: function(err) {
           console.log(err);
