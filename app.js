@@ -17,6 +17,7 @@ var plugins = require("gulp-load-plugins")({
 
 var commands = {
   init: "init",
+  serve: "serve",
 
   /*task commands*/
   sass: "sass",
@@ -45,6 +46,8 @@ gulp.task(commands.build_images, getTask("build-images"));
 gulp.task(commands.build_fonts, getTask("build-fonts"));
 gulp.task(commands.build, getTask("build"));
 gulp.task(commands.unbuild, getTask("unbuild"));
+
+gulp.task(commands.serve, getTask("serve"));
 
 module.exports = {
   commands: commands,

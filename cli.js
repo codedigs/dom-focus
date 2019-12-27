@@ -23,6 +23,8 @@ function Cli() {
     this.buildFontsCommand();
     this.buildCommand();
     this.unbuildCommand();
+
+    this.serveCommand();
   }
 
   this.executeCommand();
@@ -126,6 +128,17 @@ Cli.prototype = {
         Cli.commandUsed = commands.unbuild; // need of executeCommand method
 
         app.runGulpCommand(commands.unbuild);
+      });
+  },
+
+  serveCommand: function() {
+    program
+      .command(commands.serve)
+      .description("Run the application.")
+      .action(function () {
+        Cli.commandUsed = commands.serve; // need of executeCommand method
+
+        app.runGulpCommand(commands.serve);
       });
   },
 
