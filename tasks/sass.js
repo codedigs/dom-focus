@@ -1,6 +1,6 @@
 var notifier = require("node-notifier");
 
-module.exports = function(gulp, plugins, config) {
+module.exports = function(gulp, plugins, config, browserSync) {
   return function() {
     var options = typeof config.sass.options !== "undefined" ? config.sass.options : {};
     var notify = typeof config.sass.notify !== "undefined" ? config.sass.notify : false;
@@ -19,6 +19,9 @@ module.exports = function(gulp, plugins, config) {
         log: true
       }))
       .pipe(gulp.dest(config.sass.dest))
+      .pipe(browserSync.reload({
+        stream: true
+      }))
       .on('end', function() {
         if (typeof config.sass.callback !== "undefined") {
           config.sass.callback();

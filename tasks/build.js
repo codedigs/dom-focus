@@ -1,7 +1,7 @@
 var runSequence = require("run-sequence");
 var notifier = require("node-notifier");
 
-module.exports = function(gulp, plugins, config, commands) {
+module.exports = function(config, commands) {
   return function() {
     var notify = true;
     if (typeof config.build !== "undefined") {

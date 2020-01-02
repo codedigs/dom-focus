@@ -1,7 +1,7 @@
 var del = require("del");
 var notifier = require("node-notifier");
 
-module.exports = function(gulp, plugins, config) {
+module.exports = function(config) {
   return function() {
     var notify = true;
     if (typeof config.unbuild !== "undefined") {

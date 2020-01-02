@@ -1,15 +1,12 @@
 var gulp = require("gulp");
-
-var config = {};
+var browserSync = require("browser-sync").create();
+var config;
 
 try {
   config = require(process.cwd() + "/config");
-} catch (e) {
-  // do nothing
-}
+} catch(e) {} // do nothing
 
 var plugins = require("gulp-load-plugins")({
-  DEBUG: config.debug,
   rename: {
     'gulp-merge-media-queries': "mmq"
   }
@@ -32,7 +29,29 @@ var commands = {
 };
 
 function getTask(task) {
-  return require(__dirname + "/tasks/" + task)(gulp, plugins, config, commands);
+  var taskCommand = task.replace("-", ":");
+
+  switch (taskCommand) {
+    case commands.sass:
+      return require(__dirname + "/tasks/" + task)(gulp, plugins, config, browserSync);
+
+    case commands.build_views:
+    case commands.build_images:
+    case commands.build_fonts:
+      return require(__dirname + "/tasks/" + task)(gulp, plugins, config);
+
+    case commands.sass_watch:
+      return require(__dirname + "/tasks/" + task)(gulp, config, commands);
+
+    case commands.build:
+      return require(__dirname + "/tasks/" + task)(config, commands);
+
+    case commands.unbuild:
+      return require(__dirname + "/tasks/" + task)(config);
+
+    case commands.serve:
+      return require(__dirname + "/tasks/" + task)(gulp, config, commands, browserSync);
+  }
 }
 
 gulp.task(commands.sass, getTask("sass"));
@@ -47,7 +66,10 @@ gulp.task(commands.build_fonts, getTask("build-fonts"));
 gulp.task(commands.build, getTask("build"));
 gulp.task(commands.unbuild, getTask("unbuild"));
 
-gulp.task(commands.serve, getTask("serve"));
+gulp.task(commands.serve, [
+  commands.sass,
+  // commands.scripts
+], getTask("serve"));
 
 module.exports = {
   commands: commands,

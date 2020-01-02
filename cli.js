@@ -46,7 +46,7 @@ Cli.prototype = {
         Cli.commandUsed = commands.init; // need of executeCommand method
 
         try {
-          fse.copySync(__dirname + "/config.js.example", process.cwd() + "/config.js");
+          fse.copySync(process.cwd() + "/config.js.example", process.cwd() + "/config.js");
           console.log("Successfully created file config.js.");
         } catch (err) {
           console.error(err);
@@ -134,6 +134,7 @@ Cli.prototype = {
   serveCommand: function() {
     program
       .command(commands.serve)
+      .option("--watch", "File type to be watched. Comma separated value.")
       .description("Run the application.")
       .action(function () {
         Cli.commandUsed = commands.serve; // need of executeCommand method
@@ -159,7 +160,7 @@ Cli.prototype = {
 
       process.exit(1);
     } else {
-      var invalidCommand = Object.values(commands).indexOf(Cli.commandUsed) === -1;
+      var invalidCommand = !Object.values(commands).includes(Cli.commandUsed);
 
       if (invalidCommand) {
         console.error("\"" + Cli.commandUsed + "\" is not a valid command. Use --help to display available commands.");
