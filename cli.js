@@ -35,19 +35,19 @@ Cli.commandUsed = null;
 
 Cli.prototype = {
   hasConfigFile: function() {
-    return fse.existsSync(process.cwd() + "/config.js");
+    return fse.existsSync(process.cwd() + "/dfconfig.js");
   },
 
   initCommand: function() {
     program
       .command(commands.init)
-      .description("Create file config.js.")
+      .description("Create file dfconfig.js.")
       .action(function() {
         Cli.commandUsed = commands.init; // need of executeCommand method
 
         try {
-          fse.copySync(__dirname + "/config.js.example", process.cwd() + "/config.js");
-          console.log("Successfully created file config.js.");
+          fse.copySync(__dirname + "/dfconfig.js.example", process.cwd() + "/dfconfig.js");
+          console.log("Successfully created file dfconfig.js.");
         } catch (err) {
           console.error(err);
         }

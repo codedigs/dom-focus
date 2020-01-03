@@ -3,7 +3,7 @@ var browserSync = require("browser-sync").create();
 var config;
 
 try {
-  config = require(process.cwd() + "/config");
+  config = require(process.cwd() + "/dfconfig");
 } catch(e) {} // do nothing
 
 var plugins = require("gulp-load-plugins")({
