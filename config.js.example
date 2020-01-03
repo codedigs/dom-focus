@@ -6,7 +6,7 @@ module.exports = {
 
   build_views: {
     src: "app/**/*.html",
-    dest: "dist/app"
+    dest: "dist"
   },
 
   build_images: {
@@ -15,7 +15,7 @@ module.exports = {
       "app/img/**/*.png",
       "app/img/**/*.gif",
     ],
-    dest: "dist/app/img"
+    dest: "dist/img"
   },
 
   build_fonts: {
@@ -27,6 +27,6 @@ module.exports = {
       "app/**/*.woff2",
       "app/**/*.otf"
     ],
-    dest: "dist/app/fonts",
+    dest: "dist/fonts",
   },
 };
