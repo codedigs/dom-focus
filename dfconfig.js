@@ -1,7 +1,12 @@
 module.exports = {
   sass: {
-    src: "app/sass/**/*.scss",
+    src: "app/src/sass/**/*.scss",
     dest: "app/css"
+  },
+
+  pug: {
+    src: "app/src/pug/**/*.pug",
+    dest: "app"
   },
 
   build_views: {
