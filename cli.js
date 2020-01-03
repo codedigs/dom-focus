@@ -30,7 +30,7 @@ function Cli() {
   this.executeCommand();
 }
 
-Cli.VERSION = "1.0.1";
+Cli.VERSION = "1.0.2";
 Cli.commandUsed = null;
 
 Cli.prototype = {
@@ -46,7 +46,7 @@ Cli.prototype = {
         Cli.commandUsed = commands.init; // need of executeCommand method
 
         try {
-          fse.copySync(process.cwd() + "/config.js.example", process.cwd() + "/config.js");
+          fse.copySync(__dirname + "/config.js.example", process.cwd() + "/config.js");
           console.log("Successfully created file config.js.");
         } catch (err) {
           console.error(err);
