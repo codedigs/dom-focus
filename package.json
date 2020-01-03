@@ -1,6 +1,6 @@
 {
   "name": "dom-focus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Focus on front-end development.",
   "main": "app.js",
   "scripts": {
