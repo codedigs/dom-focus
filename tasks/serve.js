@@ -14,12 +14,17 @@ module.exports = function(gulp, config, commands, browserSync) {
       var options = watchOptions.substring(watchOptions.indexOf("=") + 1);
       var types = options.split(",");
 
+      if (types.includes("pug")) {
+        gulp.watch(config.pug.src, [commands.pug]);
+      }
+
       if (types.includes("html")) {
-        gulp.watch("app/**/*.html", browserSync.reload);
+        gulp.watch(config.build_views.src, browserSync.reload);
       }
 
       if (types.includes("js")) {
-        gulp.watch("app/js/**/*.js", browserSync.reload);
+        var JS_SRC = "app/js/**/*.js";
+        gulp.watch(JS_SRC, browserSync.reload);
       }
     }
   };

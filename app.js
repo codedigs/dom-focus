@@ -8,7 +8,8 @@ try {
 
 var plugins = require("gulp-load-plugins")({
   rename: {
-    'gulp-merge-media-queries': "mmq"
+    'gulp-merge-media-queries': "mmq",
+    'gulp-html-prettify': "prettify"
   }
 });
 
@@ -34,12 +35,12 @@ function getTask(task) {
   var taskCommand = task.replace("-", ":");
 
   switch (taskCommand) {
+    case commands.pug:
     case commands.sass:
       return require(__dirname + "/tasks/" + task)(gulp, plugins, config, browserSync);
 
-    case commands.pug:
+    case commands.build_views:
     case commands.build_images:
-    case commands.build_fonts:
     case commands.build_fonts:
       return require(__dirname + "/tasks/" + task)(gulp, plugins, config);
 

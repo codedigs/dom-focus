@@ -11,6 +11,7 @@ module.exports = function(config, commands) {
     }
 
     runSequence(commands.unbuild,
+      commands.pug,
       commands.sass,
       // commands.scripts,
       [

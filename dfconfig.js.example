@@ -12,7 +12,6 @@ module.exports = {
   build_views: {
     src: "app/**/*.html",
     dest: "dist",
-    notify: true
   },
 
   build_images: {
