@@ -58,23 +58,15 @@ function getTask(task) {
   }
 }
 
+gulp.task(commands.pug, getTask("pug"));
 gulp.task(commands.sass, getTask("sass"));
 gulp.task(commands.sass_watch, [commands.sass], getTask('sass-watch'));
-gulp.task(commands.pug, getTask("pug"));
-// gulp.task(commands.scripts, getTask("scripts"));
-// gulp.task(commands.scripts_watch, [commands.scripts], getTask('scripts-watch'));
-// gulp.task("watch", [commands.sass_watch, commands.scripts_watch], function() {});
-
 gulp.task(commands.build_views, getTask("build-views"));
 gulp.task(commands.build_images, getTask("build-images"));
 gulp.task(commands.build_fonts, getTask("build-fonts"));
 gulp.task(commands.build, getTask("build"));
 gulp.task(commands.unbuild, getTask("unbuild"));
-
-gulp.task(commands.serve, [
-  commands.sass,
-  // commands.scripts
-], getTask("serve"));
+gulp.task(commands.serve, [commands.sass], getTask("serve"));
 
 module.exports = {
   commands: commands,

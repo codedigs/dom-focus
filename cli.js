@@ -16,9 +16,9 @@ function Cli() {
   if (!this.hasConfigFile()) {
     this.initCommand();
   } else {
+    this.pugCommand();
     this.sassCommand();
     this.sassWatchCommand();
-    this.pugCommand();
     this.buildViewsCommand();
     this.buildImagesCommand();
     this.buildFontsCommand();
@@ -31,7 +31,7 @@ function Cli() {
   this.executeCommand();
 }
 
-Cli.VERSION = "1.1.0";
+Cli.VERSION = "1.2.0";
 Cli.commandUsed = null;
 
 Cli.prototype = {
@@ -55,6 +55,17 @@ Cli.prototype = {
       });
   },
 
+  pugCommand: function() {
+    program
+      .command(commands.pug)
+      .description("Compile pug files.")
+      .action(function() {
+        Cli.commandUsed = commands.pug; // need of executeCommand method
+
+        app.runGulpCommand(commands.pug);
+      });
+  },
+
   sassCommand: function() {
     program
       .command(commands.sass)
@@ -74,17 +85,6 @@ Cli.prototype = {
         Cli.commandUsed = commands.sass_watch; // need of executeCommand method
 
         app.runGulpCommand(commands.sass_watch);
-      });
-  },
-
-  pugCommand: function() {
-    program
-      .command(commands.pug)
-      .description("Compile pug files.")
-      .action(function() {
-        Cli.commandUsed = commands.pug; // need of executeCommand method
-
-        app.runGulpCommand(commands.pug);
       });
   },
 

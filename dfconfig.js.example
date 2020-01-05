@@ -1,12 +1,16 @@
 module.exports = {
+  pug: {
+    src: "app/src/pug/**/*.pug",
+    dest: "app"
+  },
+
   sass: {
     src: "app/src/sass/**/*.scss",
     dest: "app/css"
   },
 
-  pug: {
-    src: "app/src/pug/**/*.pug",
-    dest: "app"
+  js: {
+    src: "app/js/**/*.js"
   },
 
   build_views: {

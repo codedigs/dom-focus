@@ -23,8 +23,7 @@ module.exports = function(gulp, config, commands, browserSync) {
       }
 
       if (types.includes("js")) {
-        var JS_SRC = "app/js/**/*.js";
-        gulp.watch(JS_SRC, browserSync.reload);
+        gulp.watch(config.js.src, browserSync.reload);
       }
     }
   };
