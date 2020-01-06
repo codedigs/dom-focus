@@ -17,6 +17,7 @@ function Cli() {
     this.initCommand();
   } else {
     this.pugCommand();
+    this.pugWatchCommand();
     this.sassCommand();
     this.sassWatchCommand();
     this.buildViewsCommand();
@@ -31,7 +32,7 @@ function Cli() {
   this.executeCommand();
 }
 
-Cli.VERSION = "1.2.0";
+Cli.VERSION = "1.3.0";
 Cli.commandUsed = null;
 
 Cli.prototype = {
@@ -63,6 +64,17 @@ Cli.prototype = {
         Cli.commandUsed = commands.pug; // need of executeCommand method
 
         app.runGulpCommand(commands.pug);
+      });
+  },
+
+  pugWatchCommand: function() {
+    program
+      .command(commands.pug_watch)
+      .description("Compile pug files every changes of it.")
+      .action(function() {
+        Cli.commandUsed = commands.pug_watch; // need of executeCommand method
+
+        app.runGulpCommand(commands.pug_watch);
       });
   },
 

@@ -7,7 +7,13 @@ module.exports = function(gulp, plugins, config, browserSync) {
     var prettify = typeof config.pug.prettify !== "undefined" ? config.pug.prettify : true;
 
     return gulp.src(config.pug.src, options)
-      .pipe(plugins.pug())
+      .pipe(plugins.plumber({
+        errorHandler: function(err) {
+          console.log(err);
+          this.emit("end");
+        }
+      }))
+      .pipe(plugins.pug({verbose: true}))
       .pipe(plugins.if(prettify, plugins.prettify({
         indent_char: " ",
         indent_size: 4
