@@ -12,6 +12,8 @@ Focus on front-end development.
  - `node node_modules/.bin/df-cli pug:watch` - Compile pug files every changes of it.
  - `node node_modules/.bin/df-cli sass` - Compile sass files.
  - `node node_modules/.bin/df-cli sass:watch` - Compile sass files every changes of it.
+ - `node node_modules/.bin/df-cli js` - Compile js files.
+ - `node node_modules/.bin/df-cli js:watch` - Compile js files every changes of it.
  - `node node_modules/.bin/df-cli build:views` - Build view with minifying css and js files.
  - `node node_modules/.bin/df-cli build:images` - Optimize image files.
  - `node node_modules/.bin/df-cli build:fonts` - Flatten font files.
