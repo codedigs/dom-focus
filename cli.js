@@ -19,6 +19,8 @@ function Cli() {
     this.pugCommand();
     this.sassCommand();
     this.sassWatchCommand();
+    this.jsCommand();
+    this.jsWatchCommand();
     this.buildViewsCommand();
     this.buildImagesCommand();
     this.buildFontsCommand();
@@ -85,6 +87,28 @@ Cli.prototype = {
         Cli.commandUsed = commands.sass_watch; // need of executeCommand method
 
         app.runGulpCommand(commands.sass_watch);
+      });
+  },
+
+  jsCommand: function() {
+    program
+      .command(commands.js)
+      .description("Compile js files.")
+      .action(function() {
+        Cli.commandUsed = commands.js; // need of executeCommand method
+
+        app.runGulpCommand(commands.js);
+      });
+  },
+
+  jsWatchCommand: function() {
+    program
+      .command(commands.js_watch)
+      .description("Compile js files every changes of it.")
+      .action(function() {
+        Cli.commandUsed = commands.js_watch; // need of executeCommand method
+
+        app.runGulpCommand(commands.js_watch);
       });
   },
 

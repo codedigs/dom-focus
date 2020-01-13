@@ -18,12 +18,13 @@ module.exports = function(gulp, config, commands, browserSync) {
         gulp.watch(config.pug.src, [commands.pug]);
       }
 
-      if (types.includes("html")) {
-        gulp.watch(config.build_views.src, browserSync.reload);
+      if (types.includes("js")) {
+        gulp.watch(config.js.src, [commands.js]);
       }
 
-      if (types.includes("js")) {
-        gulp.watch(config.js.src, browserSync.reload);
+      // if not using pug
+      if (types.includes("html")) {
+        gulp.watch(config.build_views.src, browserSync.reload);
       }
     }
   };

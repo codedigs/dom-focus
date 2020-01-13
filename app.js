@@ -18,12 +18,12 @@ var commands = {
   serve: "serve",
 
   /*task commands*/
+  pug: "pug",
   sass: "sass",
   sass_watch: "sass:watch",
-  pug: "pug",
+  js: "js",
+  js_watch: "js:watch",
 
-  // scripts: typeof config.scripts.command !== "undefined" ? config.scripts.command : "scripts",
-  // scripts_watch: typeof config.scripts.watch_command !== "undefined" ? config.scripts.watch_command : "scripts:watch",
   build_views: "build:views",
   build_images: "build:images",
   build_fonts: "build:fonts",
@@ -32,41 +32,45 @@ var commands = {
 };
 
 function getTask(task) {
-  var taskCommand = task.replace("-", ":");
+  var taskFile = __dirname + "/tasks/" + task.replace(":", "-");
 
-  switch (taskCommand) {
+  switch (task) {
     case commands.pug:
     case commands.sass:
-      return require(__dirname + "/tasks/" + task)(gulp, plugins, config, browserSync);
+    case commands.js:
+      return require(taskFile)(gulp, plugins, config, browserSync);
 
     case commands.build_views:
     case commands.build_images:
     case commands.build_fonts:
-      return require(__dirname + "/tasks/" + task)(gulp, plugins, config);
+      return require(taskFile)(gulp, plugins, config);
 
     case commands.sass_watch:
-      return require(__dirname + "/tasks/" + task)(gulp, config, commands);
+    case commands.js_watch:
+      return require(taskFile)(gulp, config, commands);
 
     case commands.build:
-      return require(__dirname + "/tasks/" + task)(config, commands);
+      return require(taskFile)(config, commands);
 
     case commands.unbuild:
-      return require(__dirname + "/tasks/" + task)(config);
+      return require(taskFile)(config);
 
     case commands.serve:
-      return require(__dirname + "/tasks/" + task)(gulp, config, commands, browserSync);
+      return require(taskFile)(gulp, config, commands, browserSync);
   }
 }
 
-gulp.task(commands.pug, getTask("pug"));
-gulp.task(commands.sass, getTask("sass"));
-gulp.task(commands.sass_watch, [commands.sass], getTask('sass-watch'));
-gulp.task(commands.build_views, getTask("build-views"));
-gulp.task(commands.build_images, getTask("build-images"));
-gulp.task(commands.build_fonts, getTask("build-fonts"));
-gulp.task(commands.build, getTask("build"));
-gulp.task(commands.unbuild, getTask("unbuild"));
-gulp.task(commands.serve, [commands.sass], getTask("serve"));
+gulp.task(commands.pug, getTask(commands.pug));
+gulp.task(commands.sass, getTask(commands.sass));
+gulp.task(commands.sass_watch, [commands.sass], getTask(commands.sass_watch));
+gulp.task(commands.js, getTask(commands.js));
+gulp.task(commands.js_watch, getTask(commands.js_watch));
+gulp.task(commands.build_views, getTask(commands.build_views));
+gulp.task(commands.build_images, getTask(commands.build_images));
+gulp.task(commands.build_fonts, getTask(commands.build_fonts));
+gulp.task(commands.build, getTask(commands.build));
+gulp.task(commands.unbuild, getTask(commands.unbuild));
+gulp.task(commands.serve, [commands.pug, commands.sass, commands.js], getTask(commands.serve));
 
 module.exports = {
   commands: commands,

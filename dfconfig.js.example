@@ -10,7 +10,8 @@ module.exports = {
   },
 
   js: {
-    src: "app/js/**/*.js"
+    src: "app/src/js/**/*.js",
+    dest: "app/js"
   },
 
   build_views: {
