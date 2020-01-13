@@ -34,7 +34,7 @@ function Cli() {
   this.executeCommand();
 }
 
-Cli.VERSION = "1.3.0";
+Cli.VERSION = "1.4.0";
 Cli.commandUsed = null;
 
 Cli.prototype = {
