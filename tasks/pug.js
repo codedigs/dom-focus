@@ -13,7 +13,7 @@ module.exports = function(gulp, plugins, config, browserSync) {
           this.emit("end");
         }
       }))
-      .pipe(plugins.pug({verbose: true}))
+      .pipe(plugins.pug())
       .pipe(plugins.if(prettify, plugins.prettify({
         indent_char: " ",
         indent_size: 4
