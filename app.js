@@ -19,6 +19,7 @@ var commands = {
 
   /*task commands*/
   pug: "pug",
+  pug_watch: "pug:watch",
   sass: "sass",
   sass_watch: "sass:watch",
   js: "js",
@@ -45,6 +46,7 @@ function getTask(task) {
     case commands.build_fonts:
       return require(taskFile)(gulp, plugins, config);
 
+    case commands.pug_watch:
     case commands.sass_watch:
     case commands.js_watch:
       return require(taskFile)(gulp, config, commands);
@@ -61,6 +63,7 @@ function getTask(task) {
 }
 
 gulp.task(commands.pug, getTask(commands.pug));
+gulp.task(commands.pug_watch, [commands.pug], getTask(commands.pug_watch));
 gulp.task(commands.sass, getTask(commands.sass));
 gulp.task(commands.sass_watch, [commands.sass], getTask(commands.sass_watch));
 gulp.task(commands.js, getTask(commands.js));
